@@ -26,7 +26,7 @@ app.use(
   cors({
     origin: [
       'http://localhost:5173',
-      'https://bharat-frontend-nil.vercel.app'
+      'https://bharat-frontend-nu.vercel.app'
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
