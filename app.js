@@ -24,7 +24,10 @@ const app = express();
 // Enable CORS with Credentials for JWT Cookie Sharing
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: [
+      'http://localhost:5173',
+      'https://bharat-frontend-nil.vercel.app'
+    ],
     credentials: true,
     methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
