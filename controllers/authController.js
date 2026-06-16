@@ -20,7 +20,7 @@ const createSendToken = (user, statusCode, req, res) => {
     ),
     httpOnly: true,
     secure: req.secure || req.headers["x-forwarded-proto"] === "https",
-    sameSite: "lax", // Good security for cookie sharing locally
+    sameSite: "none", // Good security for cookie sharing locally
   };
 
   // Set secure cookie in production
@@ -152,11 +152,9 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
   // 2) Generate the random reset token
   const resetToken = user.createPasswordResetToken();
 
-  
   await user.save({ validateBeforeSave: false });
   const freshUser = await User.findById(user._id);
 
-  
   // 3) Send it to user's email
   try {
     // We will build a client reset page URL at port 5173 (Vite standard)
@@ -192,20 +190,17 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
 
 export const resetPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on the token
-  
+
   const hashedToken = crypto
     .createHash("sha256")
     .update(req.params.token)
     .digest("hex");
-
-
 
   const user = await User.findOne({
     passwordResetToken: hashedToken,
     passwordResetExpires: { $gt: Date.now() },
   });
   // console.log("USER BY TOKEN + EXPIRY:", userByTokenAndExpiry);
-
 
   // 2) If token has not expired, and there is user, set the new password
   if (!user) {
