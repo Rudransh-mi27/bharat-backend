@@ -158,7 +158,7 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
   // 3) Send it to user's email
   try {
     // We will build a client reset page URL at port 5173 (Vite standard)
-    const clientResetURL = `http://localhost:5173/reset-password/${resetToken}`;
+    const clientResetURL = `https://bharat-frontend-nu.vercel.app/reset-password/${resetToken}`;
 
     const message = `Forgot your password? Click on the link below to set a new password:\n\n${clientResetURL}\n\nThis link is valid for only 10 minutes.\n\nIf you didn't forget your password, please ignore this email!`;
 
